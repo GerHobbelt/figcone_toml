@@ -10,7 +10,7 @@ namespace figcone::toml {
 
 namespace {
 
-std::string str(const toml::value& val)
+std::string str(const ::toml::value& val)
 {
     if (val.is_string())
         return val.as_string();
@@ -20,7 +20,7 @@ std::string str(const toml::value& val)
     return stream.str();
 }
 
-void parseToml(const toml::value& toml, TreeNode& node)
+void parseToml(const ::toml::value& toml, TreeNode& node)
 {
     for (auto& [key, value] : toml.as_table()) {
         if (value.is_table()) {
@@ -55,9 +55,9 @@ Tree Parser::parse(std::istream& stream)
     const auto toml = [&]
     {
         try {
-            return toml::parse(stream);
+            return ::toml::parse(stream);
         }
-        catch (const toml::exception& e) {
+        catch (const ::toml::exception& e) {
             throw figcone::ConfigError{e.what(), {e.location().line(), e.location().column()}};
         }
     }();

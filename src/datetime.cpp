@@ -9,8 +9,8 @@ std::optional<toml::DateTimePoint> StringConverter<toml::DateTimePoint>::fromStr
 {
     const auto dateStr = "date = " + data;
     auto stream = std::stringstream{dateStr};
-    const auto tomlData = toml::parse(stream);
-    const auto date = toml::get<std::chrono::system_clock::time_point>(tomlData.at("date"));
+    const auto tomlData = ::toml::parse(stream);
+    const auto date = ::toml::get<std::chrono::system_clock::time_point>(tomlData.at("date"));
     return toml::DateTimePoint{date};
 }
 
@@ -18,8 +18,8 @@ std::optional<toml::TimeDuration> StringConverter<toml::TimeDuration>::fromStrin
 {
     const auto timeStr = "time = " + data;
     auto stream = std::stringstream{timeStr};
-    const auto tomlData = toml::parse(stream);
-    const auto time = toml::get<std::chrono::seconds>(tomlData.at("time"));
+    const auto tomlData = ::toml::parse(stream);
+    const auto time = ::toml::get<std::chrono::seconds>(tomlData.at("time"));
     return toml::TimeDuration{time};
 }
 
